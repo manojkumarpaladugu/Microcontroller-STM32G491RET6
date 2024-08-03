@@ -1,16 +1,23 @@
-#include "Core.h"
+#pragma once
 
+// Includes -------------------------------------------------------------
+#include "Board.h"
+
+// Private macros -------------------------------------------------------
 #define STACK_ADDRESS (SRAM2_BASE + SRAM2_SIZE)
 
 #define ISR_VECTOR_SIZE_WORDS 118
 
+// External variables ---------------------------------------------------
 extern uint32_t _sidata, _sdata, _edata, _sbss, _ebss;
+
+// External functions prototypes ----------------------------------------
 extern void main(void);
 
-void ResetHandler(void);
+// Private functions prototypes -----------------------------------------
 void DefaultHandler(void);
 
-// Cortex-M system exceptions
+void ResetHandler(void);
 void NMI_Handler(void) __attribute__((weak, alias("DefaultHandler")));
 void HardFault_Handler(void) __attribute__((weak, alias("DefaultHandler")));
 void MemManage_Handler(void) __attribute__((weak, alias("DefaultHandler")));
@@ -20,8 +27,6 @@ void SVC_Handler(void) __attribute__((weak, alias("DefaultHandler")));
 void DebugMon_Handler(void) __attribute__((weak, alias("DefaultHandler")));
 void PendSV_Handler(void) __attribute__((weak, alias("DefaultHandler")));
 void SysTick_Handler(void);
-
-// STM32G491RET6 interrupt handlers
 void WWDG_IRQHandler(void) __attribute__((weak, alias("DefaultHandler")));
 void PVD_PVM_IRQHandler(void) __attribute__((weak, alias("DefaultHandler")));
 void RTC_TAMP_LSECSS_IRQHandler(void) __attribute__((weak, alias("DefaultHandler")));

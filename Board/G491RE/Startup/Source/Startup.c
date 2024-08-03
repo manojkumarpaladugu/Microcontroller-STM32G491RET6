@@ -1,5 +1,7 @@
+// Includes ------------------------------------------------------------
 #include "Startup.h"
 
+// Private variables ---------------------------------------------------
 uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector"))) = {
   STACK_ADDRESS,
   // Cortex-M system exceptions
@@ -123,8 +125,9 @@ uint32_t isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector")
   (uint32_t)&FMAC_IRQHandler
 };
 
+// Private functions ----------------------------------------------------
 /**
-  * @brief This function handles System tick timer.
+  * @brief This function handles System tick timer
   */
 void SysTick_Handler(void)
 {
@@ -162,6 +165,8 @@ void ResetHandler(void)
   {
     bss[i] = 0;
   }
+
+  SystemInit();
 
   // Jump to main function
   main();
